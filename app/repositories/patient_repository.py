@@ -42,6 +42,14 @@ class PatientRepository(BaseRepository[Patient]):
         with Database(self.db_path) as db:
             db.execute(query, (patient_id,))
 
+    def get_conclusion_by_patient_id(self, patient_id: int) -> Conclusion:
+        query = '''SELECT * FROM conclusions WHERE patient_id = ?'''
+        with Database(self.db_path) as db:
+            db.execute(query, (patient_id,))
+            row = db.fetchone()
+            return Conclusion(*row) if row else None
+        
+
     def get_all_relationships(self, patient_id: int) -> Patient:
         patient = self.get(patient_id)
         if not patient:

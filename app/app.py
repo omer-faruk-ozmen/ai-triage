@@ -4,6 +4,7 @@ from repositories.patient_repository import PatientRepository
 from models import Patient
 import helpers
 import downloads
+import requests_handler
 from database import init_db,DATABASE_PATH
 
 app = Flask(__name__)
@@ -19,16 +20,15 @@ def before_request():
 
 @app.route('/')
 def home():
-    return render_template('form.html')
+    return render_template('home.html')
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_patient():
+    client_ip = g.client_ip
+    if helpers.is_ip_blacklisted(client_ip):
+        flash('Your IP is blacklisted. You cannot add patients.', 'danger')
+        return redirect(url_for('list_patients'))
     if request.method == 'POST':
-        client_ip = g.client_ip
-        if helpers.is_ip_blacklisted(client_ip):
-            flash('Your IP is blacklisted. You cannot add patients.', 'danger')
-            return redirect(url_for('add_patient'))
-
         try:
             patient = Patient(
                 id=None,
@@ -49,8 +49,17 @@ def add_patient():
                 date=helpers.get_current_date(),
                 ip_address=client_ip
             )
+            
+            prompt = helpers.create_prompt(patient)
+
+            response = requests_handler.generate_algorithms_with_ai(prompt)
+            
+            print(type(response))
 
             new_id = patient_repo.add(patient)
+
+            helpers.process_patient_data(new_id,response,prompt)
+
             return redirect(url_for('patient_detail', patient_id=new_id))
         except Exception as e:
             flash('Error occurred in insert operation: ' + str(e), 'danger')
@@ -60,7 +69,14 @@ def add_patient():
 @app.route('/list')
 def list_patients():
     patients = patient_repo.list()
-    return render_template('list.html', rows=patients)
+    patients_with_conclusions = []
+
+    for patient in patients:
+        conclusion = patient_repo.get_conclusion_by_patient_id(patient.id)
+        patient.conclusion = conclusion
+        patients_with_conclusions.append(patient)
+
+    return render_template('list.html', rows=patients_with_conclusions)
 
 @app.route('/patient/<int:patient_id>', methods=['GET'])
 def patient_detail(patient_id):
@@ -72,6 +88,10 @@ def patient_detail(patient_id):
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_patient(id):
+    client_ip = g.client_ip
+    if helpers.is_ip_blacklisted(client_ip):
+        flash('Your IP is blacklisted. You cannot edit patients.', 'danger')
+        return redirect(url_for('list_patients'))
 
     if request.method == 'POST':
         patient = Patient(

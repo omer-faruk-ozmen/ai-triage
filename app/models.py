@@ -24,28 +24,28 @@ class Patient:
 
 @dataclass
 class Diagnosis:
-    id: int
-    patient_id: int
-    diagnosis: str
+    id: int = None
+    patient_id: int= None
+    diagnosis: str= ''
 
 @dataclass
 class Examination:
-    id: int
-    patient_id: int
-    examination: str
+    id: int= None
+    patient_id: int= None
+    examination: str= ''
 
 @dataclass
 class Intervention:
-    id: int
-    patient_id: int
-    intervention: str
+    id: int= None
+    patient_id: int= None
+    intervention: str= ''
 
 @dataclass
 class Conclusion:
-    id: int
-    patient_id: int
-    triage_class: str
-    triage_code: str
-    prompt: str
-    result: str
+    id: int= None
+    patient_id: int= None
+    triage_class: str= ''
+    triage_code: str= ''
+    prompt: str= ''
+    result: str = ''
 

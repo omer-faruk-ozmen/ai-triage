@@ -1,35 +1,82 @@
 {% extends "base.html" %}
-
 {% block title %}Patient Detail{% endblock %}
-
 {% block content %}
-<div class="container">
-  <h3>Triage Class: {{ patient.conclusion.triage_class }}</h3>
-  <div class="row">
-    <div class="col-sm">
-      <h2>Ön Tanılar</h2>
-      <ul class="list-group">
-        {% for diagnosis in patient.diagnosis %}
-        <li>{{ diagnosis.diagnosis }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="col-sm">
-      <h2>Tetkikler</h2>
-      <ul class="list-group">
-        {% for examination in patient.examinations %}
-            <li>{{ examination.examination }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="col-sm">
-      <h2>Müdahale Alg.</h2>
-      <ul class="list-group">
-        {% for intervention in patient.interventions %}
-            <li>{{ intervention.intervention }}</li>
-        {% endfor %}
-      </ul>
+<div class="container patient-detail-container">
+  <div class="mb-4">
+    <div class="col-md-12">
+      <h3 class="patient-detail-heading">
+        Triaj Sınıfı: <i class="fas fa-clipboard-list"></i> {{ patient.conclusion.triage_class }}
+      </h3>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-6 mb-4">
+      <div class="card">
+        <ul class="detail-list list-group">
+          <li class="list-group-item"><strong>Age:</strong> {{ patient.age }}</li>
+          <li class="list-group-item"><strong>Gender:</strong> {{ patient.gender }}</li>
+          <li class="list-group-item"><strong>Complaints:</strong> {{ patient.complaints }}</li>
+          <li class="list-group-item"><strong>Duration:</strong> {{ patient.duration }}</li>
+          <li class="list-group-item"><strong>Blood Pressure:</strong> {{ patient.blood_pressure }}</li>
+          <li class="list-group-item"><strong>Pulse:</strong> {{ patient.pulse }}</li>
+          <li class="list-group-item"><strong>Respiratory Rate:</strong> {{ patient.respiratory_rate }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <div class="card">
+      <ul class="detail-list list-group">
+        <li class="list-group-item"><strong>Temperature:</strong> {{ patient.temperature }}</li>
+        <li class="list-group-item"><strong>Saturation:</strong> {{ patient.saturation }}</li>
+        <li class="list-group-item"><strong>Kronik Hastalıklar:</strong> {{ patient.chronic_diseases }}</li>
+        <li class="list-group-item"><strong>Medikasyon:</strong> {{ patient.medications }}</li>
+        <li class="list-group-item"><strong>Alerji Geçmişi:</strong> {{ patient.allergy_history }}</li>
+        <li class="list-group-item"><strong>Ameliyat Geçmişi:</strong> {{ patient.surgical_history }}</li>
+        <li class="list-group-item"><strong>Summary:</strong> {{ patient.summary }}</li>
+      </ul>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row mb-4">
+  <div class="col-sm-4">
+    <h4 class="detail-section-heading">Ön Tanılar</h4>
+    <ul class="detail-list list-group">
+      {% for diagnosis in patient.diagnosis %}
+      <li class="list-group-item">{{loop.index}} - {{ diagnosis.diagnosis }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h4 class="detail-section-heading">Tetkikler</h4>
+    <ul class="detail-list list-group">
+      {% for examination in patient.examinations %}
+      <li class="list-group-item">{{loop.index}} - {{ examination.examination }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h4 class="detail-section-heading">Müdahale Alg.</h4>
+    <ul class="detail-list list-group">
+      {% for intervention in patient.interventions %}
+      <li class="list-group-item">{{loop.index}} - {{ intervention.intervention }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Diğer Bilgiler</h3>
+    <ul class="detail-list list-group">
+      <li class="list-group-item"><strong>Prompt:</strong> {{ patient.conclusion.prompt }}</li>
+      <li class="list-group-item"><strong>Result:</strong> {{ patient.conclusion.result }}</li>
+      <li class="list-group-item"><strong>Created Ip:</strong> {{ patient.ip_address }}</li>
+      <li class="list-group-item"><strong>Created Date:</strong> {{ patient.date }}</li>
+    </ul>
+  </div>
+</div>
 </div>
 {% endblock %}
