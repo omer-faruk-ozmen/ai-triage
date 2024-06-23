@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Add Patient{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Add Patient</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('add_patient') }}" method="post">
+        <div class="row">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="text" class="form-control" name="age" id="age">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select class="form-control" id="gender" name="gender">
+                        <option selected>Lütfen seçim yapın</option>
+                        <option value="male">Erkek</option>
+                        <option value="female">Kadın</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="complaints">Complaints:</label>
+                    <input type="text" class="form-control" name="complaints" id="complaints">
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration of complaint:</label>
+                    <input type="text" class="form-control" name="duration" id="duration">
+                </div>
+                <div class="form-group">
+                    <label for="bloodPressure">Blood Pressure:</label>
+                    <input type="text" class="form-control" name="bloodPressure" id="bloodPressure">
+                </div>
+                <div class="form-group">
+                    <label for="pulse">Pulse:</label>
+                    <input type="text" class="form-control" name="pulse" id="pulse">
+                </div>
+                <div class="form-group">
+                    <label for="respiratoryRate">Respiratory Rate:</label>
+                    <input type="text" class="form-control" name="respiratoryRate" id="respiratoryRate">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="temperature">Temperature:</label>
+                    <input type="text" class="form-control" name="temperature" id="temperature">
+                </div>
+                <div class="form-group">
+                    <label for="saturation">Saturation:</label>
+                    <input type="text" class="form-control" name="saturation" id="saturation">
+                </div>
+                <div class="form-group">
+                    <label for="chronicDiseases">List of Chronic Diseases:</label>
+                    <input type="text" class="form-control" name="chronicDiseases" id="chronicDiseases">
+                </div>
+                <div class="form-group">
+                    <label for="medications">Medications:</label>
+                    <input type="text" class="form-control" name="medications" id="medications">
+                </div>
+                <div class="form-group">
+                    <label for="allergyHistory">Allergy History:</label>
+                    <input type="text" class="form-control" name="allergyHistory" id="allergyHistory">
+                </div>
+                <div class="form-group">
+                    <label for="surgicalHistory">Surgical History:</label>
+                    <input type="text" class="form-control" name="surgicalHistory" id="surgicalHistory">
+                </div>
+                <div class="form-group">
+                    <label for="summary">Short Summary of Complaint:</label>
+                    <input type="text" class="form-control" name="summary" id="summary">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Classify Triage</button>
+    </form>
+</div>
+{% endblock %}
+

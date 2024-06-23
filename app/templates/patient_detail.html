@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h3>Triage Class: {{ patient.conclusion.triage_class }}</h3>
+  <div class="row">
+    <div class="col-sm">
+      <h2>Ön Tanılar</h2>
+      <ul class="list-group">
+        {% for diagnosis in patient.diagnosis %}
+        <li>{{ diagnosis.diagnosis }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm">
+      <h2>Tetkikler</h2>
+      <ul class="list-group">
+        {% for examination in patient.examinations %}
+            <li>{{ examination.examination }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm">
+      <h2>Müdahale Alg.</h2>
+      <ul class="list-group">
+        {% for intervention in patient.interventions %}
+            <li>{{ intervention.intervention }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

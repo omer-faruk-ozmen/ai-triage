@@ -1,0 +1,20 @@
+body, html {
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+.bg-dark {
+    background-color: #343a40 !important;
+}
+
+.ip-address {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
