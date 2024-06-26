@@ -1,5 +1,7 @@
 body, html {
     height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f2f2;
 }
 body{
     display: flex;

@@ -39,3 +39,10 @@ class ConclusionRepository(BaseRepository[Conclusion]):
         query = '''DELETE FROM conclusions WHERE id = ?'''
         with Database(self.db_path) as db:
             db.execute(query, (conclusion_id,))
+
+    def get_conclusion_by_patient_id(self, patient_id: int)->Conclusion:
+        query = '''SELECT * FROM conclusions WHERE patient_id = ?'''
+        with Database(self.db_path) as db:
+            db.execute(query, (patient_id,))
+            row = db.fetchone()
+            return Conclusion(*row) if row else None

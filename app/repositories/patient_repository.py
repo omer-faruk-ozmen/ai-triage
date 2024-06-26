@@ -30,6 +30,20 @@ class PatientRepository(BaseRepository[Patient]):
             db.execute(query)
             rows = db.fetchall()
             return [Patient(*row) for row in rows]
+        
+    def list_paginated(self, start: int, per_page: int):
+        query = '''SELECT * FROM patients LIMIT ? OFFSET ?'''
+        with Database(self.db_path) as db:
+            db.execute(query, (per_page, start))
+            rows = db.fetchall()
+            return [Patient(*row) for row in rows]
+        
+    def count(self):
+        query = '''SELECT COUNT(*) FROM patients'''
+        with Database(self.db_path) as db:
+            db.execute(query)
+            count = db.fetchone()[0]
+            return count
 
     def update(self, patient: Patient):
         query = '''UPDATE patients SET age = ?, gender = ?, complaints = ?, duration = ?, blood_pressure = ?, pulse = ?, respiratory_rate = ?, temperature = ?, saturation = ?, chronic_diseases = ?, medications = ?, allergy_history = ?, surgical_history = ?, summary = ?, date = ?, ip_address = ? WHERE id = ?'''
