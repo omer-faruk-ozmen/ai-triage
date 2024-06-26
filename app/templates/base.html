@@ -15,17 +15,17 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ url_for('home') }}">Triage Assistant</a>
+            <a class="navbar-brand" href="{{ url_for('home') }}"><i class="fas fa-clinic-medical"></i> Triage Assistant</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('add_patient') }}">Add Patient</a>
+                        <a class="nav-link" href="{{ url_for('add_patient') }}"><i class="fas fa-user-plus"></i> Add Patient</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('list_patients') }}">Patients List</a>
+                        <a class="nav-link" href="{{ url_for('list_patients') }}"><i class="fas fa-list"></i> Patients List</a>
                     </li>
                 </ul>
             </div>
@@ -36,11 +36,11 @@
     </main>
 
     <div class="ip-address">
-        IP Address: {{ g.client_ip }}
+        IP: {{ g.client_ip }}
     </div>
     <footer class="footer mt-auto py-3 bg-dark text-white-50">
         <div class="container">
-            <span>&copy; 2024 Triage Assistant. All rights reserved.</span>
+            <span>&copy; 2024 AI Assistant.</span>
         </div>
     </footer>
 

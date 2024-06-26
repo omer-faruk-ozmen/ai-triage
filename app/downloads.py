@@ -8,7 +8,6 @@ db_path = database.DATABASE_PATH
 patient_repo = PatientRepository(db_path)
 
 def download_excel():
-    db_path = 'your_db_path_here.db'
     with database.Database(db_path) as db:
         patients_df = patient_repo.get_all_patients_with_relationships()
 

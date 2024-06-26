@@ -1,35 +1,132 @@
 {% extends "base.html" %}
-
-{% block title %}Patient Detail{% endblock %}
-
+{% block title %}Hasta Detayı{% endblock %}
 {% block content %}
-<div class="container">
-  <h3>Triage Class: {{ patient.conclusion.triage_class }}</h3>
-  <div class="row">
-    <div class="col-sm">
-      <h2>Ön Tanılar</h2>
-      <ul class="list-group">
-        {% for diagnosis in patient.diagnosis %}
-        <li>{{ diagnosis.diagnosis }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="col-sm">
-      <h2>Tetkikler</h2>
-      <ul class="list-group">
-        {% for examination in patient.examinations %}
-            <li>{{ examination.examination }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="col-sm">
-      <h2>Müdahale Alg.</h2>
-      <ul class="list-group">
-        {% for intervention in patient.interventions %}
-            <li>{{ intervention.intervention }}</li>
-        {% endfor %}
-      </ul>
+<style>
+  /* CSS kodlarınızı buraya yapıştırın */
+  .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+  
+  .card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+  }
+  
+  .detail-list {
+      padding-left: 0;
+  }
+  
+  .detail-list .list-group-item {
+      border: none;
+      padding: 10px;
+  }
+  
+  /* Heading styles */
+  .patient-detail-heading {
+      font-size: 24px;
+      color: #3069a6;
+  }
+  
+  .detail-section-heading {
+      font-size: 20px;
+      color: #28a745;
+  }
+  
+  /* Icon styles */
+  .list-group-item i {
+      margin-right: 10px;
+      color: #007bff;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+      .col-sm-6 {
+          flex-basis: 100%;
+          max-width: 100%;
+      }
+  }
+  </style>
+  
+
+<div class="container patient-detail-container">
+  <div class="mb-4">
+    <div class="col-md-12">
+      <h3 class="patient-detail-heading">
+        Triaj Sınıfı: {{ patient.conclusion.triage_class }}
+      </h3>
     </div>
   </div>
+  <h4>Anamnez</h4>
+  <div class="row">
+    <div class="col-sm-6 mb-4">
+      <div class="card">
+        <ul class="detail-list list-group">
+          <li class="list-group-item"><i class="fas fa-user"></i> <strong>Yaş:</strong> {{ patient.age }}</li>
+          <li class="list-group-item"><i class="fas fa-venus-mars"></i> <strong>Cinsiyet:</strong> {{ patient.gender }}</li>
+          <li class="list-group-item"><i class="fas fa-comment"></i> <strong>Şikayetler:</strong> {{ patient.complaints }}</li>
+          <li class="list-group-item"><i class="fas fa-hourglass-half"></i> <strong>Süre:</strong> {{ patient.duration }}</li>
+          <li class="list-group-item"><i class="fas fa-tachometer-alt"></i> <strong>Tansiyon:</strong> {{ patient.blood_pressure }}</li>
+          <li class="list-group-item"><i class="fas fa-heartbeat"></i> <strong>Nabız:</strong> {{ patient.pulse }}</li>
+          <li class="list-group-item"><i class="fas fa-lungs"></i> <strong>Solunum Hızı:</strong> {{ patient.respiratory_rate }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <div class="card">
+        <ul class="detail-list list-group">
+          <li class="list-group-item"><i class="fas fa-thermometer-half"></i> <strong>Ateş:</strong> {{ patient.temperature }}</li>
+          <li class="list-group-item"><i class="fas fa-water"></i> <strong>Saturasyon:</strong> {{ patient.saturation }}</li>
+          <li class="list-group-item"><i class="fas fa-notes-medical"></i> <strong>Kronik Hastalıklar:</strong> {{ patient.chronic_diseases }}</li>
+          <li class="list-group-item"><i class="fas fa-pills"></i> <strong>İlaçlar:</strong> {{ patient.medications }}</li>
+          <li class="list-group-item"><i class="fas fa-allergies"></i> <strong>Alerji Geçmişi:</strong> {{ patient.allergy_history }}</li>
+          <li class="list-group-item"><i class="fas fa-user-md"></i> <strong>Ameliyat Geçmişi:</strong> {{ patient.surgical_history }}</li>
+          <li class="list-group-item"><i class="fas fa-file-alt"></i> <strong>Özet:</strong> {{ patient.summary }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-sm-4">
+    <h4 class="detail-section-heading"><i class="fas fa-stethoscope"></i> Ön Tanılar</h4>
+    <ul class="detail-list list-group">
+      {% for diagnosis in patient.diagnosis %}
+      <li class="list-group-item">{{loop.index}} - {{ diagnosis.diagnosis }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h4 class="detail-section-heading"><i class="fas fa-vial"></i> Tetkikler</h4>
+    <ul class="detail-list list-group">
+      {% for examination in patient.examinations %}
+      <li class="list-group-item">{{loop.index}} - {{ examination.examination }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h4 class="detail-section-heading"><i class="fas fa-medkit"></i> Müdahale Algoritmaları</h4>
+    <ul class="detail-list list-group">
+      {% for intervention in patient.interventions %}
+      <li class="list-group-item">{{loop.index}} - {{ intervention.intervention }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Diğer Bilgiler</h3>
+    <ul class="detail-list list-group">
+      <li class="list-group-item"><i class="fas fa-lightbulb"></i> <strong>Prompt:</strong> {{ patient.conclusion.prompt }}</li>
+      <li class="list-group-item"><i class="fas fa-check"></i> <strong>Sonuç:</strong> {{ patient.conclusion.result }}</li>
+      <li class="list-group-item"><i class="fas fa-calendar-alt"></i> <strong>Oluşturulma Tarihi:</strong> {{ patient.date }}</li>
+    </ul>
+  </div>
+</div>
 </div>
 {% endblock %}

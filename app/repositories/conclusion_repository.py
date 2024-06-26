@@ -8,34 +8,41 @@ class ConclusionRepository(BaseRepository[Conclusion]):
         self.db_path = db_path
 
     def add(self, conclusion: Conclusion):
-        query = '''INSERT INTO conclusion (patient_id, triage_class, triage_code, prompt, result) 
+        query = '''INSERT INTO conclusions (patient_id, triage_class, triage_code, prompt, result) 
                    VALUES (?, ?, ?, ?, ?)'''
         with Database(self.db_path) as db:
             db.execute(query, (conclusion.patient_id, conclusion.triage_class, conclusion.triage_code,
                                 conclusion.prompt, conclusion.result))
 
     def get(self, conclusion_id: int) -> Conclusion:
-        query = '''SELECT * FROM conclusion WHERE id = ?'''
+        query = '''SELECT * FROM conclusions WHERE id = ?'''
         with Database(self.db_path) as db:
             db.execute(query, (conclusion_id,))
             row = db.fetchone()
             return Conclusion(*row) if row else None
 
     def list(self) -> List[Conclusion]:
-        query = '''SELECT * FROM conclusion'''
+        query = '''SELECT * FROM conclusions'''
         with Database(self.db_path) as db:
             db.execute(query)
             rows = db.fetchall()
             return [Conclusion(*row) for row in rows]
 
     def update(self, conclusion: Conclusion):
-        query = '''UPDATE conclusion SET patient_id = ?, triage_class = ?, triage_code = ?, 
+        query = '''UPDATE conclusions SET patient_id = ?, triage_class = ?, triage_code = ?, 
                    prompt = ?, result = ? WHERE id = ?'''
         with Database(self.db_path) as db:
             db.execute(query, (conclusion.patient_id, conclusion.triage_class, conclusion.triage_code,
                                 conclusion.prompt, conclusion.result, conclusion.id))
 
     def delete(self, conclusion_id: int):
-        query = '''DELETE FROM conclusion WHERE id = ?'''
+        query = '''DELETE FROM conclusions WHERE id = ?'''
         with Database(self.db_path) as db:
             db.execute(query, (conclusion_id,))
+
+    def get_conclusion_by_patient_id(self, patient_id: int)->Conclusion:
+        query = '''SELECT * FROM conclusions WHERE patient_id = ?'''
+        with Database(self.db_path) as db:
+            db.execute(query, (patient_id,))
+            row = db.fetchone()
+            return Conclusion(*row) if row else None

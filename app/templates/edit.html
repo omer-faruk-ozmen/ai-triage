@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Patient{% endblock %}
+{% block title %}Hasta Düzenle{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h2 class="my-4">Edit Patient</h2>
+    <h2 class="my-4">Hasta Düzenle</h2>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <div class="alert-container">
@@ -20,34 +20,34 @@
         <div class="row">
             <div class="col-sm">
                 <div class="form-group">
-                    <label for="age">Age:</label>
+                    <label for="age"><i class="fas fa-birthday-cake"></i> Yaş:</label>
                     <input type="text" class="form-control" id="age" name="age" value="{{ patient.age }}">
                 </div>
                 <div class="form-group">
-                    <label for="gender">Gender:</label>
+                    <label for="gender"><i class="fas fa-venus-mars"></i> Cinsiyet:</label>
                     <input type="text" class="form-control" id="gender" name="gender" value="{{ patient.gender }}">
                 </div>
                 <div class="form-group">
-                    <label for="complaints">Complaints:</label>
+                    <label for="complaints"><i class="fas fa-heartbeat"></i> Şikayetler:</label>
                     <input type="text" class="form-control" id="complaints" name="complaints"
                         value="{{ patient.complaints }}">
                 </div>
                 <div class="form-group">
-                    <label for="duration">Duration:</label>
+                    <label for="duration"><i class="fas fa-stopwatch"></i> Şikayet Süresi:</label>
                     <input type="text" class="form-control" id="duration" name="duration"
                         value="{{ patient.duration }}">
                 </div>
                 <div class="form-group">
-                    <label for="bloodPressure">Blood Pressure:</label>
+                    <label for="bloodPressure"><i class="fas fa-tint"></i> Kan Basıncı:</label>
                     <input type="text" class="form-control" id="bloodPressure" name="bloodPressure"
                         value="{{ patient.blood_pressure }}">
                 </div>
                 <div class="form-group">
-                    <label for="pulse">Pulse:</label>
+                    <label for="pulse"><i class="fas fa-heartbeat"></i> Nabız:</label>
                     <input type="text" class="form-control" id="pulse" name="pulse" value="{{ patient.pulse }}">
                 </div>
                 <div class="form-group">
-                    <label for="respiratoryRate">Respiratory Rate:</label>
+                    <label for="respiratoryRate"><i class="fas fa-lungs"></i> Solunum Hızı:</label>
                     <input type="text" class="form-control" id="respiratoryRate" name="respiratoryRate"
                         value="{{ patient.respiratory_rate }}">
                 </div>
@@ -55,44 +55,48 @@
             <div class="col-sm">
 
                 <div class="form-group">
-                    <label for="temperature">Temperature:</label>
+                    <label for="temperature"><i class="fas fa-thermometer-half"></i> Vücut Sıcaklığı:</label>
                     <input type="text" class="form-control" id="temperature" name="temperature"
                         value="{{ patient.temperature }}">
                 </div>
                 <div class="form-group">
-                    <label for="saturation">Saturation:</label>
+                    <label for="saturation"><i class="fas fa-lungs"></i> Oksijen Satürasyonu:</label>
                     <input type="text" class="form-control" id="saturation" name="saturation"
                         value="{{ patient.saturation }}">
                 </div>
                 <div class="form-group">
-                    <label for="chronicDiseases">Chronic Diseases:</label>
+                    <label for="chronicDiseases"><i class="fas fa-diagnoses"></i> Kronik Hastalıklar:</label>
                     <input type="text" class="form-control" id="chronicDiseases" name="chronicDiseases"
                         value="{{ patient.chronic_diseases }}">
                 </div>
                 <div class="form-group">
-                    <label for="medications">Medications:</label>
+                    <label for="medications"><i class="fas fa-pills"></i> Kullanılan İlaçlar:</label>
                     <input type="text" class="form-control" id="medications" name="medications"
                         value="{{ patient.medications }}">
                 </div>
                 <div class="form-group">
-                    <label for="allergyHistory">Allergy History:</label>
+                    <label for="allergyHistory"><i class="fas fa-allergies"></i> Alerji Geçmişi:</label>
                     <input type="text" class="form-control" id="allergyHistory" name="allergyHistory"
                         value="{{ patient.allergy_history }}">
                 </div>
                 <div class="form-group">
-                    <label for="surgicalHistory">Surgical History:</label>
+                    <label for="surgicalHistory"><i class="fas fa-cut"></i> Ameliyat Geçmişi:</label>
                     <input type="text" class="form-control" id="surgicalHistory" name="surgicalHistory"
                         value="{{ patient.surgical_history }}">
                 </div>
                 <div class="form-group">
-                    <label for="summary">Summary:</label>
+                    <label for="summary"><i class="fas fa-file-alt"></i> Özet:</label>
                     <input type="text" class="form-control" id="summary" name="summary" value="{{ patient.summary }}">
                 </div>
             </div>
 
         </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="row justify-content-center">
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary btn-block">Güncelle <i class="fas fa-chevron-circle-right"></i></button>
+            </div>
+        </div>
     </form>
 </div>
 {% endblock %}
